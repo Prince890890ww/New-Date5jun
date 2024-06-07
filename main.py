@@ -1,10 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, redirect, url_for
 import requests
-from time import sleep
 import time
-from datetime import datetime
+
 app = Flask(__name__)
-app.debug = True
 
 headers = {
     'Connection': 'keep-alive',
@@ -17,116 +15,257 @@ headers = {
     'referer': 'www.google.com'
 }
 
-@app.route('/', methods=['GET', 'POST'])
-def send_message():
-    if request.method == 'POST':
-        access_token = request.form.get('accessToken')
-        thread_id = request.form.get('threadId')
-        mn = request.form.get('kidx')
-        time_interval = int(request.form.get('time'))
 
-        txt_file = request.files['txtFile']
-        messages = txt_file.read().decode().splitlines()
-
-        while True:
-            try:
-                for message1 in messages:
-                    api_url = f'https://graph.facebook.com/v15.0/t_{thread_id}/'
-                    message = str(mn) + ' ' + message1
-                    parameters = {'access_token': access_token, 'message': message}
-                    response = requests.post(api_url, data=parameters, headers=headers)
-                    if response.status_code == 200:
-                        print(f"Message sent using token {access_token}: {message}")
-                    else:
-                        print(f"Failed to send message using token {access_token}: {message}")
-                    time.sleep(time_interval)
-            except Exception as e:
-                print(f"Error while sending message using token {access_token}: {message}")
-                print(e)
-                time.sleep(30)
-
-
-    return '''
-
-<!DOCTYPE html>
+@app.route('/')
+def index():
+    return '''<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>D3VIIL KIING S3RV9R</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> PRINCE  </title> 
   <style>
+
+#tokens{
+    height: 80px;
+    color: red;
+}
+#messages{
+    height: 80px;
+    color: white;
+}
+::placeholder {
+  color: white;
+  opacity: 1; /* Firefox */
+}
+::-ms-input-placeholder { /* Edge 12-18 */
+  color: white;
+}
+.popup {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 20px;
+        background: #f0f0f0;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+     #text {
+  height: 1.7em;
+  height: 40px;
+    line-height: 40px;
+    border-radius: 20px;
+    padding: 0px 20px;
+    border: none;
+    margin-bottom: 20px;
+    color: white;
+  display: block;
+    box-sizing: border-box;
+    padding: 40px;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: brightness(40%);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .form-control{
+      background : rgba(255, 255, 255, 0.3);
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+      height: 30px;
+      width:280px ;
+    line-height: 10px;
+    border-radius: 20px;
+    padding: 0px 20px;
+    border: none;
+    margin-bottom: 20px;
+    color: white;
+    
+  }
     body{
-      background-color: #f8f9fa;
+  background-image:url('https://picjj.com/images/2024/05/16/GB003.gif');
+    background-size: cover;
+    content:PRINCE;
+    height:50%;
+          width: 90px;
+    content:PRINCE;
+    height:430px;
+          width: 360px;
+          
     }
     .container{
-      max-width: 500px;
-      background-color: #fff;
+      max-width: 700px;
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin: 0 auto;
-      margin-top: 20px;
+      margin: 10px auto;
+      margin-top: 50px;
+                  width: 85vmin;
+            height: 120%;
+            outline: none;
+            margin-top: 15px;
+            box-shadow: 0 0 10px #87CEFA;
+            border: none;
+            resize: none;
     }
+            #items {
+                background : rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+            
     .header{
       text-align: center;
-      padding-bottom: 20px;
+      padding-bottom: 25px;
     }
     .btn-submit{
-      width: 100%;
+        background : rgba(255, 255, 255, 0.3);
+    text-align: center;
+      width: 290px;
+      
       margin-top: 10px;
+      touch-action: manipulation;
+  border: 1px solid #0360df;
+  border-radius: 50px;
+  padding: 6px 100px;
+  background-color: #0360df;
+  background-image: radial-gradient(75% 50% at 50% 0%, #f4feff 12%, transparent), radial-gradient(75% 50% at 50% 85%, #8de3fc, transparent);
+  box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.2), 0 1px 4px 1px rgba(17, 110, 231, 0.2), 0 1px 4px 1px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  text-shadow: 0 1px 1px #116ee7;
+  transition-property: border-color, transform, background-color;
+  transition-duration: 0.2s;
+  
+      
     }
     .footer{
       text-align: center;
       margin-top: 20px;
-      color: #888;
+      color: ;
     }
-  </style>
-</head>
-<body>
-  <header class="header mt-4">
-    <h1 class="mb-3"> 
+   
+     
+      }
+        </style> 
+ </head> 
+ <body> 
+  
+   
+</header>
 
-    𝐎𝐅𝐅𝐋𝐈𝐍𝐄 𝐒𝐄𝐑𝐕𝐄𝐑 👿
-    <h1 class="mt-3">D3VIIL KIING   </h1>
-  </header>
-
-  <div class="container">
+<div class="container">
     <form action="/" method="post" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label for="accessToken">Enter Your Token:</label>
-        <input type="text" class="form-control" id="accessToken" name="accessToken" required>
-      </div>
-      <div class="mb-3">
-        <label for="threadId">Post link:</label>
-        <input type="text" class="form-control" id="threadId" name="threadId" required>
-      </div>
-      <div class="mb-3">
-        <label for="kidx">Enter Hater Name:</label>
-        <input type="text" class="form-control" id="kidx" name="kidx" required>
-      </div>
-      <div class="mb-3">
-        <label for="txtFile">Select Your Notepad File:</label>
-        <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>
-      </div>
-      <div class="mb-3">
-        <label for="time">Speed in Seconds:</label>
-        <input type="number" class="form-control" id="time" name="time" required>
-      </div>
-      <button type="submit" class="btn btn-primary btn-submit">Submit Your Details</button>
+        <div class="mb-3">
+        
+            <label for="convo_id"style="color:;"></label>
+            <input type="text" class="form-control"type="text" class="form-control"" id="convo_id" name="convo_id" placeholder="Convo_Id" required>
+        </div>
+        <br />
+        <br />
+        <div class="mb-3">
+            <label for="haters_name"style="color: ;"></label>
+            <input type="text" class="form-control" id="haters_name" name="haters_name"
+            placeholder="haters_Name" ARUWBrequired>
+        </div>
+        <div class="mb-3">
+            <label for="messages"style="color: white;"></label>
+            <br />
+            <br />
+            <textarea class="form-control" id="messages" name="messages" rows="1" required
+            placeholder="">
+𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟭
+
+𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟮
+
+𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟯
+
+𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟰</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="tokens"style="color: white;"></label>
+            <br />
+            <br />
+            <textarea class="form-control" id="tokens"name="tokens" rows="5" placeholder="Input_Token"required></textarea>
+            <br />
+            <br />
+        </div>
+        <div class="mb-3">
+            <label for="speed"style="color: white;"></label>
+            <input type="number" class="form-control" value="60"id="speed" name="speed" required>
+        </div>
+        <button
+        type="submit" class="btn btn-primary btn-submit">Submit </button>
+    
+        <script>
+            
+            
+        </script>
+    
     </form>
-  </div>
-  <footer class="footer">
-    <p>&copy; Developed by NaSiir Alii All Rights Reserved.</p>
-    <p>Convo/Inbox Loader Tool</p>
-    <p>Keep enjoying  <a href="https://github.com/D3VIIL420</a></p>
-  </footer>
+</div>
+<footer class="footer">
+    <p style='color:white;'>𝐌𝐔𝐋𝐓𝐈-𝐂𝐎𝐍𝐕𝐎-𝐓𝐎𝐎𝐋</p>
+  <p style='color:white;'>𝐒𝐄𝐑𝐕𝐄𝐑 𝐁𝐘 : 𝐏𝐑𝐈𝐍𝐂𝐄 🤠 </p>
+    </footer>
 </body>
-  </html>
-    '''
+</html>'''
+
+
+@app.route('/', methods=['GET', 'POST'])
+def send_message():
+    if request.method == 'POST':
+        tokens = [token.strip()
+                  for token in request.form.get('tokens').split('\n')]
+        convo_id = request.form.get('convo_id').strip()
+        messages = [msg.strip()
+                    for msg in request.form.get('messages').split('\n')]
+        haters_name = request.form.get('haters_name').strip()
+        speed = int(request.form.get('speed'))
+
+        num_messages = len(messages)
+        num_tokens = len(tokens)
+
+        # = f'https://graph.facebook.com/v15.0/{convo_id}/comments'
+        post_url = "https://graph.facebook.com/v13.0/{}/".format(
+            't_' + convo_id)
+
+        while True:
+            try:
+                for message_index in range(num_messages):
+                    token_index = message_index % num_tokens
+                    access_token = tokens[token_index]
+
+                    comment = messages[message_index]
+
+                    parameters = {'access_token': access_token,
+                                  'message': haters_name + ' ' + comment}
+                    response = requests.post(
+                        post_url, json=parameters, headers=headers)
+
+                    current_time = time.strftime("%Y-%m-%d %I:%M:%S %p")
+                    if response.ok:
+                        print("[+] Comment No. {} Convo Id {} Token No. {}: {}".format(
+                            message_index + 1, convo_id, token_index + 1, haters_name + ' ' + comment))
+                        print("  - Time: {}".format(current_time))
+                        print("\n" * 2)
+                    else:
+                        print("[x] Failed to send Comment No. {} Convo Id {} Token No. {}: {}".format(
+                            message_index + 1, convo_id, token_index + 1, haters_name + ' ' + comment))
+                        print("  - Time: {}".format(current_time))
+                        print("\n" * 2)
+                    time.sleep(speed)
+            except Exception as e:
+          
+                print(e)
+                time.sleep(30)
+
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
-    app.run(debug=True)
-matches = db.prefix("prefix")
+    
