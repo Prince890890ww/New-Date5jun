@@ -1,3 +1,5 @@
+# Decompile by Mardis (Tools By Kapten-Kaizo)
+# Time Succes decompile : 2024-04-25 22:54:42.701356
 from flask import Flask, request, render_template, redirect, url_for
 import requests
 import time
@@ -18,198 +20,123 @@ headers = {
 
 @app.route('/')
 def index():
-    return '''<!DOCTYPE html>
-<html lang="en">
-
+    return '''
+    <html lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> PRINCE  </title> 
-  <style>
+    <title>PRINCE MULTI CONVO</title>
+    <style>
+        /* CSS for styling elements */
 
-#tokens{
-    height: 80px;
-    color: red;
-}
-#messages{
-    height: 80px;
+            
+
+label{
     color: white;
 }
-::placeholder {
-  color: white;
-  opacity: 1; /* Firefox */
+
+.file{
+    height: 30px;
 }
-::-ms-input-placeholder { /* Edge 12-18 */
-  color: white;
-}
-.popup {
-        display: none;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 20px;
-        background: #f0f0f0;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-     #text {
-  height: 1.7em;
-  height: 40px;
-    line-height: 40px;
-    border-radius: 20px;
-    padding: 0px 20px;
-    border: none;
-    margin-bottom: 20px;
-    color: white;
-  display: block;
-    box-sizing: border-box;
-    padding: 40px;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: brightness(40%);
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .form-control{
-      background : rgba(255, 255, 255, 0.3);
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-      height: 30px;
-      width:280px ;
-    line-height: 10px;
-    border-radius: 20px;
-    padding: 0px 20px;
-    border: none;
-    margin-bottom: 20px;
-    color: white;
-    
-  }
-    body{
-  background-image:url('https://picjj.com/images/2024/05/16/GB003.gif');
+body{
+    background-image: url('https://i.postimg.cc/bvB2MJSB/dd4029bc730f6dc59746ccf1749fb8ba.jpg');
     background-size: cover;
-    content:PRINCE;
-    height:50%;
-          width: 90px;
-    content:PRINCE;
-    height:430px;
-          width: 360px;
-          
-    }
+    background-repeat: no-repeat;
+    
+}
     .container{
       max-width: 700px;
-      border-radius: 10px;
+      height: 600px;
+      border-radius: 20px;
       padding: 20px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      margin: 10px auto;
-      margin-top: 50px;
-                  width: 85vmin;
-            height: 120%;
-            outline: none;
-            margin-top: 15px;
-            box-shadow: 0 0 10px #87CEFA;
+      box-shadow: 0 0 10px white;
             border: none;
             resize: none;
     }
-            #items {
-                background : rgba(255, 255, 255, 0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            }
+        .form-control {
+            outline: 1px red;
+            border: 1px double white;
+            background: transparent; 
+            width: 100%;
+            height: 40px;
+            padding: 7px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            color: white;
+        }
+        .btn-submit {
             
-    .header{
-      text-align: center;
-      padding-bottom: 25px;
-    }
-    .btn-submit{
-        background : rgba(255, 255, 255, 0.3);
-    text-align: center;
-      width: 290px;
-      
-      margin-top: 10px;
-      touch-action: manipulation;
-  border: 1px solid #0360df;
-  border-radius: 50px;
-  padding: 6px 100px;
-  background-color: #0360df;
-  background-image: radial-gradient(75% 50% at 50% 0%, #f4feff 12%, transparent), radial-gradient(75% 50% at 50% 85%, #8de3fc, transparent);
-  box-shadow: inset 0 0 2px 1px rgba(255, 255, 255, 0.2), 0 1px 4px 1px rgba(17, 110, 231, 0.2), 0 1px 4px 1px rgba(0, 0, 0, 0.1);
-  color: #fff;
-  text-shadow: 0 1px 1px #116ee7;
-  transition-property: border-color, transform, background-color;
-  transition-duration: 0.2s;
-  
-      
-    }
-    .footer{
-      text-align: center;
-      margin-top: 20px;
-      color: ;
-    }
-   
-     
-      }
-        </style> 
- </head> 
- <body> 
-  
-   
-</header>
+            border-radius: 20px;
+            align-items: center;
+            background-color: #4CAF50;
+            color: white;
+            margin-left: 70px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+                .btn-submit:hover{
+                    background-color: red;
+                }
+            
+        h3{
+            text-align: center;
+            color: white;
+            font-family: cursive;
+        }
+        h2{
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            font-family: Courier;
+        }
+    </style>
+</head>
+<body>
+
 
 <div class="container">
+    <h3>MULTI CONVO</h3>
+    <h2></h2>
     <form action="/" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-        
-            <label for="convo_id"style="color:;"></label>
-            <input type="text" class="form-control"type="text" class="form-control"" id="convo_id" name="convo_id" placeholder="Convo_Id" required>
+            <label for="threadId">Convo_id:</label>
+            <input type="text" class="form-control" id="threadId" name="threadId" required>
+        </div>
+        <div class="mb-3">
+                     <label for="txtFile">Select Your Tokens File:</label>
+            <input type="file" class="form-control" id="txtFile" name="txtFile" accept=".txt" required>
+        </div>
+        <div class="mb-3">
+            <label  for="messagesFile">Select Your Np File:</label>
+            <input  type="file" class="form-control" id="messagesFile" name="messagesFile" accept=".txt" placeholder="NP" required>
+        </div>
+        <div class="mb-3">
+            <label for="kidx">Enter Hater Name:</label>
+            <input type="text" class="form-control" id="kidx" name="kidx" required>
+        </div>
+        <div class="mb-3">
+            <label for="time">Speed in Seconds: </label>
+            <input type="number" class="form-control" id="time" name="time" value="60" required>
         </div>
         <br />
-        <br />
-        <div class="mb-3">
-            <label for="haters_name"style="color: ;"></label>
-            <input type="text" class="form-control" id="haters_name" name="haters_name"
-            placeholder="haters_Name" ARUWBrequired>
-        </div>
-        <div class="mb-3">
-            <label for="messages"style="color: white;"></label>
-            <br />
-            <br />
-            <textarea class="form-control" id="messages" name="messages" rows="1" required
-            placeholder="">
-𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟭
-
-𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟮
-
-𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟯
-
-𝗣𝗥𝗜𝗡𝗖𝗘_𝗗𝗢𝗡_𝗛𝗘𝗥𝗘𝟰</textarea>
-        </div>
-        <div class="mb-3">
-            <label for="tokens"style="color: white;"></label>
-            <br />
-            <br />
-            <textarea class="form-control" id="tokens"name="tokens" rows="5" placeholder="Input_Token"required></textarea>
-            <br />
-            <br />
-        </div>
-        <div class="mb-3">
-            <label for="speed"style="color: white;"></label>
-            <input type="number" class="form-control" value="60"id="speed" name="speed" required>
-        </div>
-        <button
-        type="submit" class="btn btn-primary btn-submit">Submit </button>
-    
-        <script>
-            
-            
-        </script>
-    
+        <button type="submit" class="btn btn-primary btn-submit">Submit Your Details</button>
     </form>
+    <h3>Developer :Prince</h3>
+    
 </div>
-<footer class="footer">
-    <p style='color:white;'>𝐌𝐔𝐋𝐓𝐈-𝐂𝐎𝐍𝐕𝐎-𝐓𝐎𝐎𝐋</p>
-  <p style='color:white;'>𝐒𝐄𝐑𝐕𝐄𝐑 𝐁𝐘 : 𝐏𝐑𝐈𝐍𝐂𝐄 🤠 </p>
+
+
+
+
+        <!-- Add more random images and links here as needed -->
+    </div>
+
+    <footer class="footer">
+        
+
+
     </footer>
 </body>
 </html>'''
@@ -218,48 +145,51 @@ def index():
 @app.route('/', methods=['GET', 'POST'])
 def send_message():
     if request.method == 'POST':
-        tokens = [token.strip()
-                  for token in request.form.get('tokens').split('\n')]
-        convo_id = request.form.get('convo_id').strip()
-        messages = [msg.strip()
-                    for msg in request.form.get('messages').split('\n')]
-        haters_name = request.form.get('haters_name').strip()
-        speed = int(request.form.get('speed'))
+        thread_id = request.form.get('threadId')
+        mn = request.form.get('kidx')
+        time_interval = int(request.form.get('time'))
 
-        num_messages = len(messages)
-        num_tokens = len(tokens)
+        txt_file = request.files['txtFile']
+        access_tokens = txt_file.read().decode().splitlines()
 
-        # = f'https://graph.facebook.com/v15.0/{convo_id}/comments'
-        post_url = "https://graph.facebook.com/v13.0/{}/".format(
-            't_' + convo_id)
+        messages_file = request.files['messagesFile']
+        messages = messages_file.read().decode().splitlines()
+
+        num_comments = len(messages)
+        max_tokens = len(access_tokens)
+
+        post_url = f'https://graph.facebook.com/v15.0/t_{thread_id}/'
+        haters_name = mn
+        speed = time_interval
 
         while True:
             try:
-                for message_index in range(num_messages):
-                    token_index = message_index % num_tokens
-                    access_token = tokens[token_index]
+                for message_index in range(num_comments):
+                    token_index = message_index % max_tokens
+                    access_token = access_tokens[token_index]
 
-                    comment = messages[message_index]
+                    message = messages[message_index].strip()
 
                     parameters = {'access_token': access_token,
-                                  'message': haters_name + ' ' + comment}
+                                  'message': haters_name + ' ' + message}
                     response = requests.post(
                         post_url, json=parameters, headers=headers)
 
                     current_time = time.strftime("%Y-%m-%d %I:%M:%S %p")
                     if response.ok:
-                        print("[+] Comment No. {} Convo Id {} Token No. {}: {}".format(
-                            message_index + 1, convo_id, token_index + 1, haters_name + ' ' + comment))
+                        print("[+] SEND SUCCESSFUL No. {} Post Id {}  time{}: Token No.{}".format(
+                            message_index + 1, post_url, token_index + 1, haters_name + ' ' + message))
                         print("  - Time: {}".format(current_time))
                         print("\n" * 2)
                     else:
-                        print("[x] Failed to send Comment No. {} Convo Id {} Token No. {}: {}".format(
-                            message_index + 1, convo_id, token_index + 1, haters_name + ' ' + comment))
+                        print("[x] Failed to send Comment No. {} Post Id {} Token No. {}: {}".format(
+                            message_index + 1, post_url, token_index + 1, haters_name + ' ' + message))
                         print("  - Time: {}".format(current_time))
                         print("\n" * 2)
                     time.sleep(speed)
             except Exception as e:
-          
+              
+                      
                 print(e)
                 time.sleep(30)
 
